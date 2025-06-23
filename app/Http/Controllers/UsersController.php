@@ -13,9 +13,11 @@ class UsersController extends Controller
 
     public function index() {
 
+        $user = Auth::user();
         $users = User::orderby('id','desc')->paginate(10);
 
         return view('users.index',[
+            'user' => $user,
             'users' => $users,
         ]);
     }

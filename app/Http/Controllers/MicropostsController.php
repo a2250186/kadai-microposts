@@ -17,9 +17,13 @@ class MicropostsController extends Controller
             // ユーザーとフォロー中ユーザーの投稿の一覧を作成日時の降順で取得
             $microposts = $user->feed_microposts()->orderBy('created_at', 'desc')->paginate(10);
 
+            // このユーザーがお気に入りした投稿のidを取得して配列にする
+            $micropostsId = $user->favorites()->pluck('favorites.micropost_id')->toArray();
+
             $data = [
                 'user' => $user,
                 'microposts' => $microposts,
+                'favoritesId' => $micropostsId,
             ];
         }
 
